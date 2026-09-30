@@ -27,7 +27,7 @@ USER_AGENT = "webxpl-bot/1.0 (+recon educacional)"
 
 # Domínio: rótulos de 1-63 chars, total <= 253, pelo menos um ponto.
 _DOMAIN_RE = re.compile(
-    r"^(?=.{1,253}$)(?!-)[A-Za-z0-9-]{1,63}(?<!-)(\\.[A-Za-z0-9-]{1,63})+$"
+    r"^(?=.{1,253}$)(?!-)[A-Za-z0-9-]{1,63}(?<!-)(\.[A-Za-z0-9-]{1,63})+$"
 )
 
 
@@ -248,7 +248,7 @@ def solve_webxpl() -> str:
     except requests.RequestException as exc:
         raise ReconError(f"Falha ao acessar user.php: {exc}")
 
-    match = re.search(r"FIAP\\{[^}]+\\}", r2.text)
+    match = re.search(r"FIAP\{[^}]+\}", r2.text)
     if not match:
         raise ReconError("Flag não encontrada (o alvo pode estar fora do ar ou alterado).")
 
